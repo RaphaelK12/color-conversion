@@ -1,5 +1,6 @@
 #include <iostream>
-#include <algorithm>  
+#include <algorithm>
+#include <math.h>  
 using namespace std;
 
 class RGB {
