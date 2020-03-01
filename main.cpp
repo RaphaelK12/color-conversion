@@ -118,6 +118,16 @@ RGB HSLtoRGB(HSL hsl){
     return rgb;;
 }
 
+RGB transparency(RGB rgb1, float alpha, RGB rgb2){
+    RGB return_rgb;
+
+    return_rgb.R = (1 - alpha) * rgb2.R + alpha * rgb1.R;
+    return_rgb.G = (1 - alpha) * rgb2.G + alpha * rgb1.G;
+    return_rgb.B = (1 - alpha) * rgb2.B + alpha * rgb1.B;
+    
+    return return_rgb;
+}
+
 int main() {
     RGB redRGB = {0, 1, 1};
     redRGB.print();
@@ -136,4 +146,14 @@ int main() {
 
     RGB lblueRGB2 = CMYtoRGB(lblueCMY);
     lblueRGB2.print();
+
+    RGB rgb1 = {1,0,0};
+    float alpha = 0.5;
+    
+    RGB rgb2 = {0,1,0};
+
+    RGB rgbTransparent = transparency(rgb1, alpha, rgb2);
+
+    cout << "RGB Transparent: ";
+    rgbTransparent.print();
 }
