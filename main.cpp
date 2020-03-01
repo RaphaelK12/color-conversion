@@ -3,6 +3,7 @@
 CMY RGBToCMY(RGB rgb)
 {
     CMY cmy;
+    // invert the colors
     cmy.C = 1.0f - (rgb.R);
     cmy.M = 1.0f - (rgb.G);
     cmy.Y = 1.0f - (rgb.B);
@@ -11,6 +12,7 @@ CMY RGBToCMY(RGB rgb)
 
 RGB CMYtoRGB(CMY cmy){
     RGB rgb;
+    // invert the colors
     rgb.R = 1.0f - (cmy.C);
     rgb.G = 1.0f - (cmy.M);
     rgb.B = 1.0f - (cmy.Y);
@@ -52,16 +54,16 @@ HSL RGBtoHSL(RGB rgb){
 }
 
 RGB HSLtoRGB(HSL hsl){
-    float r, g, b, h, s, l;
+    RGB rgb;
     float temp1, temp2, tempr, tempg, tempb;
     
-    //Scale each value to 0.0 - 1.0
-    h = hsl.H / 360.0;  //Hue is represented as a range of 360 degrees
-    s = hsl.S;  //Saturation 
-    l = hsl.L;  //Lightness
+    float h = hsl.H / 360.0;  // scale hue to 0.0 - 1.0
+    float s = hsl.S;  // saturation 
+    float l = hsl.L;  // lightness
 
+    // 0% means a shade of gray
     if(s == 0){
-    	r = g = b = l;
+    	rgb.R = rgb.G = rgb.B = l;
     }else{
         if (l < 0.5){
             temp2 = l * (1.0 + s);
@@ -82,40 +84,39 @@ RGB HSLtoRGB(HSL hsl){
         
         // Calculate red value:     
         if (6.0 * tempr < 1.0){
-            r = temp1 + (temp2 - temp1) * 6.0 * tempr;
+            rgb.R = temp1 + (temp2 - temp1) * 6.0 * tempr;
         }else if (2.0 * tempr < 1.0){
-            r = temp2;
+            rgb.R = temp2;
         }else if (3.0 * tempr < 2.0){
-            r = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempr) * 6.0;
+            rgb.R = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempr) * 6.0;
         }else{
-            r = temp1;
+            rgb.R = temp1;
         }
 
         // Calculate green value       
         if (6.0 * tempg < 1.0){
-            g = temp1 + (temp2 - temp1) * 6.0 * tempg;
+            rgb.G =temp1 + (temp2 - temp1) * 6.0 * tempg;
         }else if (2.0 * tempg < 1.0){
-            g = temp2;
+            rgb.G =temp2;
         }else if (3.0 * tempg < 2.0){
-            g = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempg) * 6.0;
+            rgb.G =temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempg) * 6.0;
         }else{
-            g = temp1; 
+            rgb.G =temp1; 
         }
 
         // Calculate blue value    
         if (6.0 * tempb < 1.0){
-            b = temp1 + (temp2 - temp1) * 6.0 * tempb;
+            rgb.B = temp1 + (temp2 - temp1) * 6.0 * tempb;
         }else if (2.0 * tempb < 1.0){
-            b = temp2;
+            rgb.B = temp2;
         }else if (3.0 * tempr < 2.0){
-            b = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempb) * 6.0;
+            rgb.B = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempb) * 6.0;
         }else{
-            g = temp1; 
+            rgb.G = temp1; 
         }
     }
 
-    RGB rgb = {r,g,b};
-    return rgb;;
+    return rgb;
 }
 
 RGB transparency(RGB rgb1, float alpha, RGB rgb2){
