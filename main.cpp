@@ -1,7 +1,6 @@
 #include "colors.h"
 
-CMY RGBToCMY(RGB rgb)
-{
+CMY RGBToCMY(RGB rgb){
     CMY cmy;
     // invert the colors
     cmy.C = 1.0f - (rgb.R);
@@ -131,22 +130,35 @@ RGB transparency(RGB rgb1, float alpha, RGB rgb2){
 
 int main() {
     RGB redRGB = {0, 1, 1};
-    redRGB.print();
-
     CMY redCMY = RGBToCMY(redRGB);
-    redCMY.print();
+    
+    redRGB.print();
+    cout << " = " ;
+    redCMY.print(); 
+    cout << endl;
 
     HSL redHSL = RGBtoHSL(redRGB);
+
+    redRGB.print();
+    cout << " = " ;
     redHSL.print();
+    cout << endl;
 
     HSL lblueHSL = {180,0.75,0.5};
-    CMY lblueCMY = {1,0,0};
-
     RGB lblueRGB1 = HSLtoRGB(lblueHSL);
-    lblueRGB1.print();
 
+    lblueHSL.print();
+    cout << " = " ;
+    lblueRGB1.print();
+    cout << endl;
+
+    CMY lblueCMY = {1,0,0};
     RGB lblueRGB2 = CMYtoRGB(lblueCMY);
+
+    lblueCMY.print();
+    cout << " = " ;
     lblueRGB2.print();
+    cout << endl;
 
     RGB rgb1 = {1,0,0};
     float alpha = 0.5;
@@ -157,4 +169,5 @@ int main() {
 
     cout << "RGB Transparent: ";
     rgbTransparent.print();
+    cout << endl;
 }
